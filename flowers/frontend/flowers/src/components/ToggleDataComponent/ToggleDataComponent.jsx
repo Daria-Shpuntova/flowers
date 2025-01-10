@@ -17,7 +17,7 @@ const generateSlugPath = (item) => {
 const generateSlug = (item) => {
     const slugs = [
         item.division_slug,
-        item.class_name_slug,
+        item.class_name_slug ? item.class_name_slug : null,
         item.order_slug,
         item.family_slug,
         item.genus_slug,

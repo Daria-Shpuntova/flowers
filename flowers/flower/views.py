@@ -4,6 +4,8 @@ from .serializers import KingdomSerializer, TypeSerializer, SpeciesSerializer, D
     OrdersSerializer, FamilySerializer, GenusSerializer, SubspeciesSerializer, SortSerializer, CharacteristicsKingdomSerializer, SubspeciesHomeSerializer, SortHomeSerializer, SpeciesHomeSerializer, GenusHomeSerializer, FamilyHomeSerializer, OrdersHomeSerializer, ClassNameHomeSerializer
 from django.views.generic import TemplateView
 from django.shortcuts import render
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 class HomePageView(TemplateView):
     template_name = 'index.html'
@@ -57,6 +59,32 @@ class DivisionPageView(generics.RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         print(f"Запрос к /api/kingdom/{kwargs['slug']}")
         return super().get(request, *args, **kwargs)
+
+
+from rest_framework import generics
+from .models import Division, ClassName  # Импортируйте Ваши модели
+from .serializers import DivisionSerializer, ClassNameSerializer  # Импортируйте Ваши сериализаторы
+
+
+class ClassDetailView(generics.RetrieveAPIView):
+    queryset = ClassName.objects.all()
+    serializer_class = ClassNameSerializer
+    # Удалите или измените lookup_field, так как у Вас два slug
+    # lookup_field = 'slug'  # Убедитесь, что у Вас есть поле slug в модели ClassName
+
+    def get_object(self):
+        division_slug = self.kwargs['division_slug']
+        class_name_slug = self.kwargs['class_name_slug']
+        # Измените логику получения объекта на основе обоих slug
+        return get_object_or_404(ClassName, division__slug=division_slug, slug=class_name_slug)
+
+    def get(self, request, *args, **kwargs):
+        division_slug = kwargs['division_slug']
+        class_name_slug = kwargs['class_name_slug']
+        print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}")
+
+        return super().get(request, *args, **kwargs)
+
 
 class ClassNamePageView(generics.ListAPIView):
     queryset = ClassName.objects.all()

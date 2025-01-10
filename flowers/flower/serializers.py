@@ -8,15 +8,14 @@ class KingdomSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DivisionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Division
-        fields = '__all__'
+
 
 class ClassNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClassName
-        fields = '__all__'
+        fields = ['slug', 'name','description', 'descriptionBig', 'image']
+
+
 
 class ClassNameHomeSerializer(serializers.ModelSerializer):
     division_slug = serializers.SlugRelatedField(source='division', slug_field='slug', queryset=Division.objects.all())
@@ -28,7 +27,15 @@ class ClassNameHomeSerializer(serializers.ModelSerializer):
 class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
-        fields = '__all__'
+        fields = ['slug', 'name']
+
+class DivisionSerializer(serializers.ModelSerializer):
+    classes = ClassNameSerializer(read_only=True, many=True)
+    orders = OrdersSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Division
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'classes', 'orders']
 
 class OrdersHomeSerializer(serializers.ModelSerializer):
     class_name_slug = serializers.SlugRelatedField(source='className', slug_field='slug', queryset=ClassName.objects.all())

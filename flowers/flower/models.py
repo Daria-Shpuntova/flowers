@@ -389,7 +389,7 @@ class PopularDivisionName(models.Model):  # название представи�
         return self.name
 
 class ClassName(Plantae): #Класс
-    division = models.ForeignKey(Division, on_delete=models.CASCADE)
+    division = models.ForeignKey(Division, on_delete=models.CASCADE, related_name='classes')
 
     def get_upload_to(self):
         return f'kingdom/{self.division.slug}/{self.slug}/'
@@ -403,7 +403,7 @@ class ClassName(Plantae): #Класс
 
 
 class Orders(Plantae):  # Порядок
-    division = models.ForeignKey(Division, on_delete=models.CASCADE)
+    division = models.ForeignKey(Division, on_delete=models.CASCADE, related_name='orders')
     className = models.ForeignKey(ClassName, on_delete=models.CASCADE, null=True, blank=True)
 
     def get_upload_to(self):
