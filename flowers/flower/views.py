@@ -61,16 +61,9 @@ class DivisionPageView(generics.RetrieveAPIView):
         return super().get(request, *args, **kwargs)
 
 
-from rest_framework import generics
-from .models import Division, ClassName  # Импортируйте Ваши модели
-from .serializers import DivisionSerializer, ClassNameSerializer  # Импортируйте Ваши сериализаторы
-
-
 class ClassDetailView(generics.RetrieveAPIView):
     queryset = ClassName.objects.all()
     serializer_class = ClassNameSerializer
-    # Удалите или измените lookup_field, так как у Вас два slug
-    # lookup_field = 'slug'  # Убедитесь, что у Вас есть поле slug в модели ClassName
 
     def get_object(self):
         division_slug = self.kwargs['division_slug']

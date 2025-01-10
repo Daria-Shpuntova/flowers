@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {Link, useParams} from 'react-router-dom';
-import './Description.css'
+
 import log from "eslint-plugin-react/lib/util/log.js";
 
 
-const Description = () => {
-    const { slug } = useParams();
+const DescriptionClassName = () => {
+    const { division_slug, class_name_slug } = useParams(); // Извлекаем оба slug'а
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        console.log(`http://localhost:8000/api/kingdom/${slug}`);
-        fetch(`http://localhost:8000/api/kingdom/${slug}`)
+        console.log(`http://localhost:8000/api/kingdom/${division_slug}/${class_name_slug}`);
+        fetch(`http://localhost:8000/api/kingdom/${division_slug}/${class_name_slug}`)
             .then(response => {
                 console.log(response, 'response');
                 if (!response.ok) {
@@ -20,10 +20,12 @@ const Description = () => {
             })
             .then(data => {
                 console.log(data, 'data'); // Логируем данные
+                console.log(data.orderClass, 'data.orderClass' )
+
                 setData(data);
             })
             .catch(error => console.error('Fetch error:', error));
-    }, [slug]);
+    }, [division_slug, class_name_slug]);
 
     if (!data) return <div>Loading...</div>;
 
@@ -37,22 +39,11 @@ const Description = () => {
             </section>
             <section>
 
-                {data.classes && data.classes.length > 0 && (
-                    <>
-                        <h2>Классы</h2>
-
-                            {data.classes.map(cls => (
-                                <Link key={cls.slug} to={cls.slug}>{cls.name}</Link>
-
-                            ))}
-
-                    </>
-                )}
-                {data.classes && data.classes.length === 0 && data.orders && data.orders.length > 0 && (
+                {data.orderClass && data.orderClass.length > 0 && (
                     <>
                         <h2>Порядки</h2>
-                            {data.orders.map(order => (
-                                <Link key={order.slug} to={order.slug}>{order.name}</Link>
+                            {data.orderClass.map(ord => (
+                                <Link key={ord.slug} to={ord.slug}>{ord.name}</Link>
                             ))}
                     </>
                 )}
@@ -61,4 +52,4 @@ const Description = () => {
     );
 }
 
-export default Description;
+export default DescriptionClassName;

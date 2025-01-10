@@ -404,7 +404,7 @@ class ClassName(Plantae): #Класс
 
 class Orders(Plantae):  # Порядок
     division = models.ForeignKey(Division, on_delete=models.CASCADE, related_name='orders')
-    className = models.ForeignKey(ClassName, on_delete=models.CASCADE, null=True, blank=True)
+    className = models.ForeignKey(ClassName, on_delete=models.CASCADE, null=True, blank=True, related_name='orderClass')
 
     def get_upload_to(self):
         return f'kingdom/{self.division.slug}/{self.slug}/'

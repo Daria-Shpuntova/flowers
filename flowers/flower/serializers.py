@@ -9,33 +9,40 @@ class KingdomSerializer(serializers.ModelSerializer):
 
 
 
-
-class ClassNameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ClassName
-        fields = ['slug', 'name','description', 'descriptionBig', 'image']
-
-
-
-class ClassNameHomeSerializer(serializers.ModelSerializer):
-    division_slug = serializers.SlugRelatedField(source='division', slug_field='slug', queryset=Division.objects.all())
-
-    class Meta:
-        model = ClassName
-        fields = ['slug', 'name','division_slug']
-
 class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
-        fields = ['slug', 'name']
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'className']
+
+
+class ClassNameSerializer(serializers.ModelSerializer):
+    orderClass = OrdersSerializer(read_only=True, many=True, default=[])
+    print(orderClass, 'orderClass')
+
+    class Meta:
+        model = ClassName
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'orderClass']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['orderClass'] = list(instance.orderClass.values())  # Получаем все связанные заказы
+        print(f"orderClass for {instance.name}: {representation['orderClass']}")
+        return representation
 
 class DivisionSerializer(serializers.ModelSerializer):
     classes = ClassNameSerializer(read_only=True, many=True)
     orders = OrdersSerializer(read_only=True, many=True)
-
     class Meta:
         model = Division
         fields = ['slug', 'name','description', 'descriptionBig', 'image', 'classes', 'orders']
+
+
+class ClassNameHomeSerializer(serializers.ModelSerializer):
+    division_slug = serializers.SlugRelatedField(source='division', slug_field='slug', queryset=Division.objects.all())
+    class Meta:
+        model = ClassName
+        fields = ['slug', 'name','division_slug']
+
 
 class OrdersHomeSerializer(serializers.ModelSerializer):
     class_name_slug = serializers.SlugRelatedField(source='className', slug_field='slug', queryset=ClassName.objects.all())

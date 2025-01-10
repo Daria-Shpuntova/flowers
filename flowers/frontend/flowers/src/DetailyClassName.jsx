@@ -4,6 +4,7 @@ import Header from "./components/Header/header.jsx";
 import {useState} from "react";
 import LastSpecies from "./components/Last/last.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import DescriptionClassName from "./components/DescriptionClassName/DescriptionClassName.jsx";
 
 export default function DetailyClassName({url}) {
     const [count, setCount] = useState(0)
@@ -17,7 +18,7 @@ export default function DetailyClassName({url}) {
     return (
         <>
             <Header url={newUrl.join('/')} />
-
+            <DescriptionClassName />
             <LastSpecies />
             <Footer />
         </>
