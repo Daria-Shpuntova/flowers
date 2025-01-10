@@ -1,0 +1,20 @@
+.headerH1 {
+    display: flex;
+    width: 80%;
+    margin-inline: auto;
+}
+.headerText {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    padding-right: 2%;
+}
+
+.headerFoto {
+    width: 50%;
+}
+
+.headerFoto img{
+    width: 100%;
+}

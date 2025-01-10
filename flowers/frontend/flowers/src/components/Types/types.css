@@ -1,0 +1,37 @@
+.bigName {
+
+}
+
+
+.typesAll{
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.types {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.types:nth-child(2n+1) {
+        flex-direction: row-reverse
+    }
+
+.typesText{
+    width: 77%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.typesText p, .typesText h3{margin: 0}
+
+.typesFoto {
+    width: 22%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.typesFoto img{width: 50%}

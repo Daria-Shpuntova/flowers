@@ -1,0 +1,19 @@
+.lastSpecies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.lastSpecies > div{
+    width: 43%;
+    background: #e3dfdf;
+    padding: 3%;
+
+}
+
+.lastSpeciesImg {
+    width: 40%;
+}
+
+.lastSpeciesImg img{width: 100%}
