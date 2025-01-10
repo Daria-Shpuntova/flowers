@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './Description.css'
+
 
 const Description = () => {
     const { slug } = useParams();
@@ -27,8 +29,14 @@ const Description = () => {
     return (
         <section>
             <h2>{data.name}</h2>
-            <p>{data.descriptionBig}</p>
-            <img src={data.image} alt={data.name} />
+            <div className='types'>
+            <div className='typesText'>
+                <p>{data.descriptionBig}</p>
+            </div>
+            <div className='typesFotoD'>
+                <img src={data.image} alt={data.name}/>
+            </div>
+            </div>
         </section>
     );
 }
