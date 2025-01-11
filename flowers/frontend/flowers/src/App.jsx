@@ -19,6 +19,7 @@ import DetailyClassName from "./DetailyClassName.jsx";
 import DetailyOrder from "./DetailyOrder.jsx";
 import DetailyFamily from './DetailyFamily.jsx'
 import DetailyGenus from "./DetailyGenus.jsx";
+import DetailyTypeRose from "./DetailyTypeRose.jsx";
 
 function App() {
 
@@ -35,6 +36,8 @@ function App() {
         <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug' element={<DetailyOrder url='http://localhost:8000/api/kingdom' />} />
         <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug' element={<DetailyFamily url='http://localhost:8000/api/kingdom' />} />
         <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug/:genus_slug' element={<DetailyGenus url='http://localhost:8000/api/kingdom' />} />
+        <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug/:genus_slug/:id' element={<DetailyTypeRose url='http://localhost:8000/api/kingdom' />} />
+
       </Routes>
     </Router>
   )

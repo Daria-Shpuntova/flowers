@@ -1,0 +1,16 @@
+.typeRoseS{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    justify-content: space-between;
+}
+.typeRose{
+    width: 23%;
+    background: #e3dfdf;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.typeRose div{width: 100%}
+.typeRose img{width: 100%}

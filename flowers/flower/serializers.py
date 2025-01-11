@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Kingdom, Division, ClassName, Orders, Species, Type, Example, Family, Genus, Subspecies, Sort, CharacteristicsKingdom
+from .models import Kingdom, Division, ClassName, Orders, Species, Type, Example, Family, Genus, Subspecies, Sort, CharacteristicsKingdom, TypeRose
 
 
 class KingdomSerializer(serializers.ModelSerializer):
@@ -22,15 +22,28 @@ class SubspeciesSerializer(serializers.ModelSerializer):
 class SpeciesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Species
-        fields = ['slug', 'name','description', 'descriptionBig', 'image']
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'speciesRose']
 
+class TypeRoseSerializer(serializers.ModelSerializer):
+    speciesRose = SpeciesSerializer(many=True, read_only=True, default=[])
+
+    class Meta:
+        model = TypeRose
+        fields = ['name','description', 'image', 'genusRose', 'speciesRose']
 
 class GenusSerializer(serializers.ModelSerializer):
-    species = SubspeciesSerializer(many=True, read_only=True, default=[])
+    species = SpeciesSerializer(many=True, read_only=True, default=[])
+    genusRose = TypeRoseSerializer(many=True, read_only=True, default=[])
 
     class Meta:
         model = Genus
-        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'species']
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'species', 'genusRose']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['genusRose'] = list(instance.genusRoses.values())  # Получаем все связанные заказы
+        return representation
+
 
 class FamilySerializer(serializers.ModelSerializer):
     genus = GenusSerializer(many=True, read_only=True, default=[])

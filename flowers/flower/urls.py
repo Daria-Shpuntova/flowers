@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (HomePageKingdomView, HomePageView, TypePageView, SpeciesLastPageView, DivisionPageView,
                     ClassNamePageView, OrdersPageView, FamilyPageView, GenusPageView, SpeciesPageView,
-                    SubspeciesPageView,
+                    SubspeciesPageView, TypeRoseView,
                     SortPageView, CharacteristicsKingdomPageView, SubspeciesHomeView, SortHomeView, SpeciesHomeView,
                     OrdersHomeView, ClassNameHomeView, FamilyHomeView, GenusHomeView, DivisionHomeView, ClassDetailView,
                     OrderDetailView, FamilyDetailView, GenusDetailView)
@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>', OrderDetailView.as_view(), name='order_detail'),
     path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>', FamilyDetailView.as_view(), name='family_detail'),
     path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>/<slug:genus_slug>', GenusDetailView.as_view(), name='genus_detail'),
+    path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>/<slug:genus_slug>/<int:id>', TypeRoseView.as_view(), name='typeRose_page'),
     path('api/classname', ClassNamePageView.as_view(), name='classname_page'),
     path('api/orders', OrdersPageView.as_view(), name='orders_page'),
     path('api/family', FamilyPageView.as_view(), name='family_page'),
@@ -32,4 +33,5 @@ urlpatterns = [
     path('api/speciesHome', SpeciesHomeView.as_view(), name='species_home_page'),
     path('api/subspeciesHome', SubspeciesHomeView.as_view(), name='subspecies_home'),
     path('api/sortHome', SortHomeView.as_view(), name='sort_home'),
+  #  path('api/typeRose/<int:id>', TypeRoseView.as_view(), name='type_page'),
 ]

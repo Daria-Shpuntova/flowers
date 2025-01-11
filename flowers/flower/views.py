@@ -1,7 +1,10 @@
 from rest_framework import generics
-from .models import Kingdom, Type, Species, Division, ClassName, Orders, Family, Genus, Subspecies, Sort, CharacteristicsKingdom
+from .models import Kingdom, Type, Species, Division, ClassName, Orders, Family, Genus, Subspecies, Sort, \
+    CharacteristicsKingdom, TypeRose
 from .serializers import KingdomSerializer, TypeSerializer, SpeciesSerializer, DivisionSerializer, ClassNameSerializer, \
-    OrdersSerializer, FamilySerializer, GenusSerializer, SubspeciesSerializer, SortSerializer, CharacteristicsKingdomSerializer, SubspeciesHomeSerializer, SortHomeSerializer, SpeciesHomeSerializer, GenusHomeSerializer, FamilyHomeSerializer, OrdersHomeSerializer, ClassNameHomeSerializer
+    OrdersSerializer, FamilySerializer, GenusSerializer, SubspeciesSerializer, SortSerializer, CharacteristicsKingdomSerializer, \
+    SubspeciesHomeSerializer, SortHomeSerializer, SpeciesHomeSerializer, GenusHomeSerializer, FamilyHomeSerializer, \
+    OrdersHomeSerializer, ClassNameHomeSerializer, TypeRoseSerializer
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from rest_framework.response import Response
@@ -181,3 +184,28 @@ class CharacteristicsKingdomPageView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         print("Запрос к /api/characteristics")
         return super().get(request, *args, **kwargs)
+
+
+class TypeRoseView(generics.RetrieveAPIView):
+    queryset = TypeRose.objects.all()
+    serializer_class = TypeRoseSerializer
+
+    def get_object(self):
+        division_slug = self.kwargs['division_slug']
+        class_name_slug = self.kwargs['class_name_slug']
+        order_slug = self.kwargs['order_slug']
+        family_slug = self.kwargs['family_slug']
+        genus_slug = self.kwargs['genus_slug']
+        typeRose_id = self.kwargs['id']
+        return get_object_or_404(TypeRose, genusRose__family__order__division__slug=division_slug, genusRose__family__order__className__slug=class_name_slug, genusRose__family__order__slug=order_slug, genusRose__family__slug=family_slug, genusRose__slug=genus_slug, id=typeRose_id)
+
+    def get(self, request, *args, **kwargs):
+        division_slug = kwargs['division_slug']
+        class_name_slug = kwargs['class_name_slug']
+        order_slug = kwargs['order_slug']
+        family_slug = kwargs['family_slug']
+        genus_slug = kwargs['genus_slug']
+        typeRose_id = kwargs['id']
+        print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}/{order_slug}/{family_slug}/{genus_slug}/{typeRose_id}")
+        return super().get(request, *args, **kwargs)
+

@@ -1,52 +1,6 @@
-//import { useEffect, useState } from 'react';
 import './header.css';
-
-//export default function Header({url}){
-//    const [set, newSet] = useState([]);
-//
-//    useEffect(() => {
-//        console.log(url)
-//        fetch(url)
-//            .then(response => response.json())
-//            .then(data => {
-//                newSet(data);
-//            })
-//            .catch(error => console.error('Error fetching data:', error));
-//    }, [url]);
-//
-//
-//    return (
-//        <>
-//            <nav>
-//                <div><a href='#'>Царство</a></div>
-//                <form className='search'>
-//                    <input type="text" name="text" placeholder='Поиск'/>
-//                    <button>
-//                    </button>
-//                </form>
-//            </nav>
-//
-//            <div>
-//                {set.map(s => (
-//                    <div key={s.id} className='headerH1'>
-//                        <div className='headerText'>
-//                            <h1>{s.name}</h1>
-//                            <p>{s.description}</p>
-//                        </div>
-//
-//                        <div className='headerFoto'>
-//                            <img src={`${s.image}`} alt={s.name}/>
-//                        </div>
-//                    </div>
-//                ))}
-//            </div>
-//        </>
-//    )
-//}
-
-
 import { useEffect, useState } from 'react';
-import './header.css';
+
 
 const Header = ({ url }) => {
 
@@ -95,14 +49,14 @@ const Header = ({ url }) => {
 
             <div>
                 {set.map(s => (
-                    <div key={s.slug} className='headerH1'>
+                    <div key={`${s.slug || s.id}-${s.name}`} className='headerH1'>
                         <div className='headerText'>
                             <h1>{s.name}</h1>
-                            <p>{s.description}</p>
+                            {s.slug ? <p>{s.description}</p> : null} {/* Показываем описание только если slug есть */}
                         </div>
 
                         <div className='headerFoto'>
-                            <img src={`${s.image}`} alt={s.name} />
+                            <img src={`${s.image}`} alt={s.name}/>
                         </div>
                     </div>
                 ))}

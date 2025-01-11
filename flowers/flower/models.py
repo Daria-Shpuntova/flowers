@@ -526,6 +526,8 @@ class TypeRose(models.Model):
     name = models.CharField(max_length=300)
     description = models.TextField()
     image = models.ImageField(upload_to='popular_rose/', null=True, blank=True)
+    genusRose = models.ForeignKey(Genus, on_delete=models.CASCADE, null=True, blank=True,
+                                    related_name='genusRoses')
 
     class Meta:
         verbose_name = 'Типы роз'
@@ -536,7 +538,7 @@ class TypeRose(models.Model):
 
 class Species(Plantae):  # Вид
     genus = models.ForeignKey(Genus, on_delete=models.CASCADE, related_name='species')
-    speciesRose = models.ForeignKey(TypeRose, on_delete=models.CASCADE, null=True, blank=True, related_name='speciesRoses')
+    speciesRose = models.ForeignKey(TypeRose, on_delete=models.CASCADE, null=True, blank=True, related_name='speciesRose')
 
     def get_upload_to(self):
         return f'kingdom/{self.genus.family.order.division.slug}/{self.genus.family.order.slug}/{self.genus.family.slug}/{self.genus.slug}/{self.slug}/'

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {Link, useParams} from 'react-router-dom';
-
+import './DescriptionGenus.css'
 import log from "eslint-plugin-react/lib/util/log.js";
 
 
@@ -22,6 +22,7 @@ const DescriptionGenus = () => {
             .then(data => {
                 console.log(data, 'data'); // Логируем данные
                 console.log(data.genus, 'data.genus' )
+                console.log(data.speciesRoses, 'data.speciesRoses')
                 setData(data);
             })
             .catch(error => console.error('Fetch error:', error));
@@ -34,7 +35,7 @@ const DescriptionGenus = () => {
             <section>
                 <h2>Описание Рода</h2>
                 <div className='types'>
-                        <p>{data.descriptionBig}</p>
+                    <p>{data.descriptionBig}</p>
                 </div>
             </section>
             <section>
@@ -42,12 +43,25 @@ const DescriptionGenus = () => {
                 {data.species && data.species.length > 0 && (
                     <>
                         <h2>Виды</h2>
-                            {data.species.map(spec => (
-                                <Link key={spec.slug} to={spec.slug}>{spec.name}</Link>
-                            ))}
+                        {data.species.map(spec => (
+                            <Link key={spec.slug} to={spec.slug}>{spec.name}</Link>
+                        ))}
                     </>
                 )}
             </section>
+                {data.genusRose && data.genusRose.length > 0 && (
+                    <section>
+                        <h2>Типы роз</h2>
+                        <div className='typeRoseS'>
+                        {data.genusRose.map(gRose => (
+                            <div className='typeRose'>
+                                <div><img src={`http://127.0.0.1:8000/${gRose.image}`} alt={gRose.name}/></div>
+                                <Link key={gRose.id} to={`${gRose.id}`}>{gRose.name}</Link>
+                            </div>
+                        ))}
+                        </div>
+                    </section>
+                )}
         </>
     );
 }
