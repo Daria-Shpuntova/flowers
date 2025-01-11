@@ -20,6 +20,9 @@ import DetailyOrder from "./DetailyOrder.jsx";
 import DetailyFamily from './DetailyFamily.jsx'
 import DetailyGenus from "./DetailyGenus.jsx";
 import DetailyTypeRose from "./DetailyTypeRose.jsx";
+import DetailySpecies from "./DetailySpecies.jsx";
+import DetailySubspecies from "./DetailySubspecies.jsx";
+import DetailySort from "./DetailySort.jsx";
 
 function App() {
 
@@ -36,7 +39,10 @@ function App() {
         <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug' element={<DetailyOrder url='http://localhost:8000/api/kingdom' />} />
         <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug' element={<DetailyFamily url='http://localhost:8000/api/kingdom' />} />
         <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug/:genus_slug' element={<DetailyGenus url='http://localhost:8000/api/kingdom' />} />
-        <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug/:genus_slug/:id' element={<DetailyTypeRose url='http://localhost:8000/api/kingdom' />} />
+        <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug/:genus_slug/type-rose/:id' element={<DetailyTypeRose url='http://localhost:8000/api/kingdom' />} />
+        <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug/:genus_slug/species/:species_slug' element={<DetailySpecies url='http://localhost:8000/api/kingdom' />} />
+        <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug/:genus_slug/species/:species_slug/:subspecies_slug' element={<DetailySubspecies url='http://localhost:8000/api/kingdom' />} />
+        <Route path='/api/kingdom/:division_slug/:class_name_slug/:order_slug/:family_slug/:genus_slug/sort/:sort_slug' element={<DetailySort url='http://localhost:8000/api/kingdom' />} />
 
       </Routes>
     </Router>

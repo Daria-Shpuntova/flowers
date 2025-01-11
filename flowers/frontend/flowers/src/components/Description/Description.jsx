@@ -9,17 +9,14 @@ const Description = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        console.log(`http://localhost:8000/api/kingdom/${slug}`);
         fetch(`http://localhost:8000/api/kingdom/${slug}`)
             .then(response => {
-                console.log(response, 'response');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log(data, 'data'); // Логируем данные
                 setData(data);
             })
             .catch(error => console.error('Fetch error:', error));
@@ -36,16 +33,12 @@ const Description = () => {
                 </div>
             </section>
             <section>
-
                 {data.classes && data.classes.length > 0 && (
                     <>
                         <h2>Классы</h2>
-
                             {data.classes.map(cls => (
                                 <Link key={cls.slug} to={cls.slug}>{cls.name}</Link>
-
                             ))}
-
                     </>
                 )}
                 {data.classes && data.classes.length === 0 && data.orders && data.orders.length > 0 && (

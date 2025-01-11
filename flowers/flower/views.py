@@ -139,6 +139,98 @@ class GenusDetailView(generics.RetrieveAPIView):
         print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}/{order_slug}/{family_slug}/{genus_slug}")
         return super().get(request, *args, **kwargs)
 
+class SpeciesDetailView(generics.RetrieveAPIView):
+    queryset = Species.objects.all()
+    serializer_class = SpeciesSerializer
+
+    def get_object(self):
+        division_slug = self.kwargs['division_slug']
+        class_name_slug = self.kwargs['class_name_slug']
+        order_slug = self.kwargs['order_slug']
+        family_slug = self.kwargs['family_slug']
+        genus_slug = self.kwargs['genus_slug']
+        species_slug = self.kwargs['species_slug']
+        return get_object_or_404(Species, genus__family__order__division__slug=division_slug,
+                                 genus__family__order__className__slug=class_name_slug,
+                                 genus__family__order__slug=order_slug,
+                                 genus__family__slug=family_slug,
+                                 genus__slug=genus_slug,
+                                 slug=species_slug)
+
+    def get(self, request, *args, **kwargs):
+        division_slug = kwargs['division_slug']
+        class_name_slug = kwargs['class_name_slug']
+        order_slug = kwargs['order_slug']
+        family_slug = kwargs['family_slug']
+        genus_slug = kwargs['genus_slug']
+        species_slug = kwargs['species_slug']
+        print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}/{order_slug}/{family_slug}/{genus_slug}/{species_slug}")
+        return super().get(request, *args, **kwargs)
+
+
+
+class SubspeciesDetailView(generics.RetrieveAPIView):
+    queryset = Subspecies.objects.all()
+    serializer_class = SubspeciesSerializer
+
+    def get_object(self):
+        division_slug = self.kwargs['division_slug']
+        class_name_slug = self.kwargs['class_name_slug']
+        order_slug = self.kwargs['order_slug']
+        family_slug = self.kwargs['family_slug']
+        genus_slug = self.kwargs['genus_slug']
+        species_slug = self.kwargs['species_slug']
+        subspecies_slug = self.kwargs['subspecies_slug']
+        return get_object_or_404(Subspecies, species__genus__family__order__division__slug=division_slug,
+                                 species__genus__family__order__className__slug=class_name_slug,
+                                 species__genus__family__order__slug=order_slug,
+                                 species__genus__family__slug=family_slug,
+                                 species__genus__slug=genus_slug,
+                                 species__slug=species_slug,
+                                 slug=subspecies_slug)
+
+    def get(self, request, *args, **kwargs):
+        division_slug = kwargs['division_slug']
+        class_name_slug = kwargs['class_name_slug']
+        order_slug = kwargs['order_slug']
+        family_slug = kwargs['family_slug']
+        genus_slug = kwargs['genus_slug']
+        species_slug = kwargs['species_slug']
+        subspecies_slug = kwargs['subspecies_slug']
+        print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}/{order_slug}/{family_slug}/{genus_slug}/{species_slug}/{subspecies_slug}")
+        return super().get(request, *args, **kwargs)
+
+class SortDetailView(generics.RetrieveAPIView):
+    queryset = Sort.objects.all()
+    serializer_class = SortSerializer
+
+    def get_object(self):
+        division_slug = self.kwargs['division_slug']
+        class_name_slug = self.kwargs['class_name_slug']
+        order_slug = self.kwargs['order_slug']
+        family_slug = self.kwargs['family_slug']
+        genus_slug = self.kwargs['genus_slug']
+
+        sort_slug = self.kwargs['sort_slug']
+        return get_object_or_404(Sort, species__genus__family__order__division__slug=division_slug,
+                                 species__genus__family__order__className__slug=class_name_slug,
+                                 species__genus__family__order__slug=order_slug,
+                                 species__genus__family__slug=family_slug,
+                                 species__genus__slug=genus_slug,
+                                 slug=sort_slug)
+
+    def get(self, request, *args, **kwargs):
+        division_slug = kwargs['division_slug']
+        class_name_slug = kwargs['class_name_slug']
+        order_slug = kwargs['order_slug']
+        family_slug = kwargs['family_slug']
+        genus_slug = kwargs['genus_slug']
+        sort_slug = kwargs['sort_slug']
+        print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}/{order_slug}/{family_slug}/{genus_slug}/{sort_slug}")
+        return super().get(request, *args, **kwargs)
+
+
+
 class ClassNamePageView(generics.ListAPIView):
     queryset = ClassName.objects.all()
     serializer_class = ClassNameSerializer

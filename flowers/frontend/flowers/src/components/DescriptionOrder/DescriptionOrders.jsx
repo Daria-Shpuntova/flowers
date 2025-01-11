@@ -9,18 +9,14 @@ const DescriptionOrder = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        console.log(`http://localhost:8000/api/kingdom/${division_slug}/${class_name_slug}/${order_slug}`);
         fetch(`http://localhost:8000/api/kingdom/${division_slug}/${class_name_slug}/${order_slug}`)
             .then(response => {
-                console.log(response, 'response');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log(data, 'data'); // Логируем данные
-                console.log(data.family, 'data.family' )
                 setData(data);
             })
             .catch(error => console.error('Fetch error:', error));
@@ -37,7 +33,6 @@ const DescriptionOrder = () => {
                 </div>
             </section>
             <section>
-
                 {data.family && data.family.length > 0 && (
                     <>
                         <h2>Семейства</h2>

@@ -14,15 +14,20 @@ class SortSerializer(serializers.ModelSerializer):
 
 
 class SubspeciesSerializer(serializers.ModelSerializer):
+    sortSubspecies = SortSerializer(many=True, read_only=True, default=[])
+
     class Meta:
         model = Subspecies
-        fields = ['slug', 'name','description', 'descriptionBig', 'image']
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'sortSubspecies']
 
 
 class SpeciesSerializer(serializers.ModelSerializer):
+    subspecies = SubspeciesSerializer(many=True, read_only=True, default=[])
+    sortSpecies = SortSerializer(many=True, read_only=True, default=[])
+
     class Meta:
         model = Species
-        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'speciesRose']
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'speciesRose', 'subspecies', 'sortSpecies']
 
 class TypeRoseSerializer(serializers.ModelSerializer):
     speciesRose = SpeciesSerializer(many=True, read_only=True, default=[])

@@ -1,36 +1,29 @@
 import React, { useState } from 'react';
 import {Link} from "react-router-dom";
 
-const generateSlugPath = (item) => {
-    const slugs = [];
-    if (item.division) slugs.push(item.division.slug);
-    if (item.className) slugs.push(item.className.slug);
-    if (item.order) slugs.push(item.order.slug);
-    if (item.family) slugs.push(item.family.slug);
-    if (item.genus) slugs.push(item.genus.slug);
-    if (item.species) slugs.push(item.species.slug);
-    if (item.subspecies) slugs.push(item.subspecies.slug);
-    slugs.push(item.slug); // Добавляем текущий элемент
-    return `/${slugs.join('/')}`; // Формируем полный путь
-};
-
-const generateSlug = (item) => {
+const generateSlug = (item, lastSlug) => {
     const slugs = [
         item.division_slug,
-        item.class_name_slug ? item.class_name_slug : null,
+        item.class_name_slug,
         item.order_slug,
         item.family_slug,
         item.genus_slug,
-        item.species_slug,
-        item.subspecies_slug ? item.subspecies_slug : null,
-        item.slug,
     ].filter(Boolean); // Убираем все значения, которые равны null или undefined
+
+    if (lastSlug === 'species_slug') {
+        slugs.push('species', item.slug);
+    } else if (lastSlug === 'subspecies_slug') {
+        slugs.push('species',item.species_slug, item.slug);
+    } else if (lastSlug === 'sort_slug') {
+        slugs.push('sort', item.slug);
+    }
 
     return `api/kingdom/${slugs.join('/')}`; // Объединяем оставшиеся слаги в строку
 };
 
 
-const ToggleDataComponent = ({ apiUrl, buttonText }) => {
+
+const ToggleDataComponent = ({ apiUrl,lastSlug, buttonText }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState([]);
 
@@ -54,8 +47,7 @@ const ToggleDataComponent = ({ apiUrl, buttonText }) => {
                     {data.length > 0 ? (
                         data.map(item => (
                             <p key={item.slug}>
-
-                                <Link to={generateSlug(item)}>{item.name}</Link>
+                                <Link to={generateSlug(item, lastSlug)}>{item.name}</Link>
                             </p>
                         ))
                     ) : (

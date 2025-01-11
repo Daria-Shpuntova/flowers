@@ -9,18 +9,15 @@ const DescriptionFamily = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        console.log(`http://localhost:8000/api/kingdom/${division_slug}/${class_name_slug}/${order_slug}/${family_slug}`);
         fetch(`http://localhost:8000/api/kingdom/${division_slug}/${class_name_slug}/${order_slug}/${family_slug}`)
             .then(response => {
-                console.log(response, 'response');
+
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log(data, 'data'); // Логируем данные
-                console.log(data.genus, 'data.genus' )
                 setData(data);
             })
             .catch(error => console.error('Fetch error:', error));
@@ -37,7 +34,6 @@ const DescriptionFamily = () => {
                 </div>
             </section>
             <section>
-
                 {data.genus && data.genus.length > 0 && (
                     <>
                         <h2>Род</h2>

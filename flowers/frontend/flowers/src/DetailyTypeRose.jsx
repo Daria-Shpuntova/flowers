@@ -12,15 +12,12 @@ export default function DetailyTypeRose({url}) {
     const [count, setCount] = useState(0)
     const { division_slug, class_name_slug, order_slug, family_slug, genus_slug, id } = useParams();
 
-    console.log(id, 'idd')
-
-
-    const newUrl = [url, division_slug, class_name_slug, order_slug, family_slug, genus_slug, id];
+    const newUrl = `${url}/${division_slug}/${class_name_slug}/${order_slug}/${family_slug}/${genus_slug}/type-rose/${id}`;
     console.log(newUrl, 'newUrl')
 
     return (
         <>
-            <Header url={newUrl.join('/')} />
+            <Header url={newUrl} />
             <DescriptionTypeRose />
             <LastSpecies />
             <Footer />

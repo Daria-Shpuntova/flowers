@@ -1,10 +1,10 @@
 from django.urls import path
 from .views import (HomePageKingdomView, HomePageView, TypePageView, SpeciesLastPageView, DivisionPageView,
                     ClassNamePageView, OrdersPageView, FamilyPageView, GenusPageView, SpeciesPageView,
-                    SubspeciesPageView, TypeRoseView,
+                    SubspeciesPageView, TypeRoseView, SpeciesDetailView,
                     SortPageView, CharacteristicsKingdomPageView, SubspeciesHomeView, SortHomeView, SpeciesHomeView,
                     OrdersHomeView, ClassNameHomeView, FamilyHomeView, GenusHomeView, DivisionHomeView, ClassDetailView,
-                    OrderDetailView, FamilyDetailView, GenusDetailView)
+                    OrderDetailView, FamilyDetailView, GenusDetailView, SortDetailView, SubspeciesDetailView)
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
@@ -16,7 +16,16 @@ urlpatterns = [
     path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>', OrderDetailView.as_view(), name='order_detail'),
     path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>', FamilyDetailView.as_view(), name='family_detail'),
     path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>/<slug:genus_slug>', GenusDetailView.as_view(), name='genus_detail'),
-    path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>/<slug:genus_slug>/<int:id>', TypeRoseView.as_view(), name='typeRose_page'),
+    path('api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>/<slug:genus_slug>/type-rose/<int:id>', TypeRoseView.as_view(), name='typeRose_page'),
+    path(
+        'api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>/<slug:genus_slug>/species/<slug:species_slug>',
+        SpeciesDetailView.as_view(), name='species_page'),
+    path(
+        'api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>/<slug:genus_slug>/species/<slug:species_slug>/<slug:subspecies_slug>',
+        SubspeciesDetailView.as_view(), name='subspecies_page'),
+    path(
+        'api/kingdom/<slug:division_slug>/<slug:class_name_slug>/<slug:order_slug>/<slug:family_slug>/<slug:genus_slug>/sort/<slug:sort_slug>',
+        SortDetailView.as_view(), name='sort_page'),
     path('api/classname', ClassNamePageView.as_view(), name='classname_page'),
     path('api/orders', OrdersPageView.as_view(), name='orders_page'),
     path('api/family', FamilyPageView.as_view(), name='family_page'),
