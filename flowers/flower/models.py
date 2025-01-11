@@ -444,7 +444,7 @@ class PopularOrdersName(models.Model):  # название представит�
 
 
 class Family(Plantae):  # Семейство
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name='family')
 
     def get_upload_to(self):
         return f'kingdom/{self.order.division.slug}/{self.order.slug}/{self.slug}/'
@@ -484,7 +484,7 @@ class PopularFamilyName(models.Model):  # название представит�
 
 
 class Genus(Plantae):  # Род
-    family = models.ForeignKey(Family, on_delete=models.CASCADE)
+    family = models.ForeignKey(Family, on_delete=models.CASCADE, related_name='genus')
 
     def get_upload_to(self):
         return f'kingdom/{self.family.order.division.slug}/{self.family.order.slug}/{self.family.slug}/{self.slug}/'
@@ -535,8 +535,8 @@ class TypeRose(models.Model):
         return self.name
 
 class Species(Plantae):  # Вид
-    genus = models.ForeignKey(Genus, on_delete=models.CASCADE)
-    speciesRose = models.ForeignKey(TypeRose, on_delete=models.CASCADE, null=True, blank=True)
+    genus = models.ForeignKey(Genus, on_delete=models.CASCADE, related_name='species')
+    speciesRose = models.ForeignKey(TypeRose, on_delete=models.CASCADE, null=True, blank=True, related_name='speciesRoses')
 
     def get_upload_to(self):
         return f'kingdom/{self.genus.family.order.division.slug}/{self.genus.family.order.slug}/{self.genus.family.slug}/{self.genus.slug}/{self.slug}/'
@@ -576,7 +576,7 @@ class PopularSpeciesName(models.Model):  # название представит
 
 
 class Subspecies(Plantae):  # Подвид
-    species = models.ForeignKey(Species, on_delete=models.CASCADE)
+    species = models.ForeignKey(Species, on_delete=models.CASCADE, related_name='subspecies')
 
     def get_upload_to(self):
         return f'kingdom/{self.species.genus.family.order.division.slug}/{self.species.genus.family.order.slug}/{self.species.genus.family.slug}/{self.species.genus.slug}/{self.species.slug}/{self.slug}/'
@@ -616,8 +616,8 @@ class PopularSubspeciesName(models.Model):  # название представ�
 
 
 class Sort(Plantae):  # Сорт
-    species = models.ForeignKey(Species, on_delete=models.CASCADE, null=True, blank=True)
-    subspecies = models.ForeignKey(Subspecies, on_delete=models.CASCADE, null=True, blank=True)
+    species = models.ForeignKey(Species, on_delete=models.CASCADE, null=True, blank=True, related_name='sortSpecies')
+    subspecies = models.ForeignKey(Subspecies, on_delete=models.CASCADE, null=True, blank=True, related_name='sortSubspecies')
 
     def get_upload_to(self):
         return f'kingdom/{self.species.genus.family.order.division.slug}/{self.species.genus.family.order.slug}/{self.species.genus.family.slug}/{self.species.genus.slug}/{self.species.slug}/{self.slug}/'

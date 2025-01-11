@@ -95,7 +95,7 @@ const Header = ({ url }) => {
 
             <div>
                 {set.map(s => (
-                    <div key={s.id} className='headerH1'>
+                    <div key={s.slug} className='headerH1'>
                         <div className='headerText'>
                             <h1>{s.name}</h1>
                             <p>{s.description}</p>

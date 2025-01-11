@@ -75,9 +75,66 @@ class ClassDetailView(generics.RetrieveAPIView):
         division_slug = kwargs['division_slug']
         class_name_slug = kwargs['class_name_slug']
         print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}")
-
         return super().get(request, *args, **kwargs)
 
+
+class OrderDetailView(generics.RetrieveAPIView):
+    queryset = Orders.objects.all()
+    serializer_class = OrdersSerializer
+
+    def get_object(self):
+        division_slug = self.kwargs['division_slug']
+        class_name_slug = self.kwargs['class_name_slug']
+        order_slug = self.kwargs['order_slug']
+        return get_object_or_404(Orders, division__slug=division_slug, className__slug=class_name_slug, slug=order_slug)
+
+    def get(self, request, *args, **kwargs):
+        division_slug = kwargs['division_slug']
+        class_name_slug = kwargs['class_name_slug']
+        order_slug = kwargs['order_slug']
+        print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}/{order_slug}")
+        return super().get(request, *args, **kwargs)
+
+class FamilyDetailView(generics.RetrieveAPIView):
+    queryset = Family.objects.all()
+    serializer_class = FamilySerializer
+
+    def get_object(self):
+        division_slug = self.kwargs['division_slug']
+        class_name_slug = self.kwargs['class_name_slug']
+        order_slug = self.kwargs['order_slug']
+        family_slug = self.kwargs['family_slug']
+        return get_object_or_404(Family, order__division__slug=division_slug, order__className__slug=class_name_slug, order__slug=order_slug, slug=family_slug)
+
+    def get(self, request, *args, **kwargs):
+        division_slug = kwargs['division_slug']
+        class_name_slug = kwargs['class_name_slug']
+        order_slug = kwargs['order_slug']
+        family_slug = kwargs['family_slug']
+        print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}/{order_slug}/{family_slug}")
+        return super().get(request, *args, **kwargs)
+
+
+class GenusDetailView(generics.RetrieveAPIView):
+    queryset = Genus.objects.all()
+    serializer_class = GenusSerializer
+
+    def get_object(self):
+        division_slug = self.kwargs['division_slug']
+        class_name_slug = self.kwargs['class_name_slug']
+        order_slug = self.kwargs['order_slug']
+        family_slug = self.kwargs['family_slug']
+        genus_slug = self.kwargs['genus_slug']
+        return get_object_or_404(Genus, family__order__division__slug=division_slug, family__order__className__slug=class_name_slug, family__order__slug=order_slug, family__slug=family_slug, slug=genus_slug)
+
+    def get(self, request, *args, **kwargs):
+        division_slug = kwargs['division_slug']
+        class_name_slug = kwargs['class_name_slug']
+        order_slug = kwargs['order_slug']
+        family_slug = kwargs['family_slug']
+        genus_slug = kwargs['genus_slug']
+        print(f"Запрос к /api/kingdom/{division_slug}/{class_name_slug}/{order_slug}/{family_slug}/{genus_slug}")
+        return super().get(request, *args, **kwargs)
 
 class ClassNamePageView(generics.ListAPIView):
     queryset = ClassName.objects.all()

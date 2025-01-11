@@ -7,17 +7,49 @@ class KingdomSerializer(serializers.ModelSerializer):
         model = Kingdom
         fields = '__all__'
 
+class SortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sort
+        fields = ['slug', 'name','description', 'descriptionBig', 'image']
+
+
+class SubspeciesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subspecies
+        fields = ['slug', 'name','description', 'descriptionBig', 'image']
+
+
+class SpeciesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Species
+        fields = ['slug', 'name','description', 'descriptionBig', 'image']
+
+
+class GenusSerializer(serializers.ModelSerializer):
+    species = SubspeciesSerializer(many=True, read_only=True, default=[])
+
+    class Meta:
+        model = Genus
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'species']
+
+class FamilySerializer(serializers.ModelSerializer):
+    genus = GenusSerializer(many=True, read_only=True, default=[])
+
+    class Meta:
+        model = Family
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'genus']
 
 
 class OrdersSerializer(serializers.ModelSerializer):
+    family = FamilySerializer(many=True, read_only=True, default=[])
+
     class Meta:
         model = Orders
-        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'className']
+        fields = ['slug', 'name','description', 'descriptionBig', 'image', 'family']
 
 
 class ClassNameSerializer(serializers.ModelSerializer):
     orderClass = OrdersSerializer(read_only=True, many=True, default=[])
-    print(orderClass, 'orderClass')
 
     class Meta:
         model = ClassName
@@ -26,7 +58,6 @@ class ClassNameSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['orderClass'] = list(instance.orderClass.values())  # Получаем все связанные заказы
-        print(f"orderClass for {instance.name}: {representation['orderClass']}")
         return representation
 
 class DivisionSerializer(serializers.ModelSerializer):
@@ -52,10 +83,6 @@ class OrdersHomeSerializer(serializers.ModelSerializer):
         model = Orders
         fields = ['slug', 'name', 'class_name_slug', 'division_slug']
 
-class FamilySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Family
-        fields = '__all__'
 
 class FamilyHomeSerializer(serializers.ModelSerializer):
     order_slug = serializers.SlugRelatedField(source='order', slug_field='slug', queryset=Orders.objects.all())
@@ -68,10 +95,6 @@ class FamilyHomeSerializer(serializers.ModelSerializer):
                   'division_slug']
 
 
-class GenusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Genus
-        fields = '__all__'
 
 class GenusHomeSerializer(serializers.ModelSerializer):
     family_slug = serializers.SlugRelatedField(source='family', slug_field='slug', queryset=Family.objects.all())
@@ -85,11 +108,6 @@ class GenusHomeSerializer(serializers.ModelSerializer):
                   'division_slug']
 
 
-class SpeciesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Species
-        fields = '__all__'
-
 class SpeciesHomeSerializer(serializers.ModelSerializer):
     genus_slug = serializers.SlugRelatedField(source='genus', slug_field='slug', queryset=Genus.objects.all())
     family_slug = serializers.SlugRelatedField(source='genus.family', slug_field='slug', queryset=Family.objects.all())
@@ -102,10 +120,6 @@ class SpeciesHomeSerializer(serializers.ModelSerializer):
         fields = ['slug', 'name', 'genus_slug', 'family_slug', 'order_slug', 'class_name_slug',
                   'division_slug']
 
-class SubspeciesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Subspecies
-        fields = '__all__'
 
 class SubspeciesHomeSerializer(serializers.ModelSerializer):
     species_slug = serializers.SlugRelatedField(source='species', slug_field='slug', queryset=Species.objects.all())
@@ -119,11 +133,6 @@ class SubspeciesHomeSerializer(serializers.ModelSerializer):
         model = Subspecies
         fields = ['slug', 'name', 'species_slug', 'genus_slug', 'family_slug', 'order_slug', 'class_name_slug',
                   'division_slug']
-
-class SortSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Sort
-        fields = '__all__'
 
 
 class SortHomeSerializer(serializers.ModelSerializer):
