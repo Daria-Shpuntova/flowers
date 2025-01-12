@@ -1,8 +1,3 @@
-.bigName {
-
-}
-
-
 .typesAll{
     display: flex;
     gap: 15px;
@@ -13,7 +8,6 @@
     display: flex;
     justify-content: space-between;
 }
-
 
 .types:nth-child(2n+1) {
         flex-direction: row-reverse
@@ -26,6 +20,14 @@
     justify-content: space-between;
 }
 
+.typesText p{
+    font-size: clamp(1rem, 1vw, 2rem);
+}
+
+.typesText p strong{
+    font-size: clamp(1rem, 1.5vw, 2rem);
+}
+
 .typesText p, .typesText h3{margin: 0}
 
 .typesFoto {
@@ -35,3 +37,16 @@
 }
 
 .typesFoto img{width: 50%}
+
+@media (max-width: 650px) {
+    .types{flex-direction: column;}
+    .types:nth-child(2n+1) {
+        flex-direction: column;
+    }
+    .typesText{width: 100%;}
+    .typesFoto {
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+    .typesFoto img{width: 25%}
+}

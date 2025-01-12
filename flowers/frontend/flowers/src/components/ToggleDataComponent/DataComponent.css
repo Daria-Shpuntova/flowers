@@ -9,6 +9,10 @@
     margin: 1%;
 }
 
+.lists a{text-decoration: none;
+    color: #494949;
+}
+
 button{
   margin-bottom: 20px;
   margin-right: 2%;
@@ -40,4 +44,10 @@ a.button9:hover {
 }
 a.button9:active {
   top: 1px;
+}
+
+@media (max-width: 550px) {
+    .lists p{
+        width: 47%;
+    }
 }

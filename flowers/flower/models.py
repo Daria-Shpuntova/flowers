@@ -524,7 +524,7 @@ class PopularGenusName(models.Model):  # название представите
 
 class TypeRose(models.Model):
     name = models.CharField(max_length=300)
-    description = models.TextField()
+    descriptionBig = models.TextField()
     image = models.ImageField(upload_to='popular_rose/', null=True, blank=True)
     genusRose = models.ForeignKey(Genus, on_delete=models.CASCADE, null=True, blank=True,
                                     related_name='genusRoses')

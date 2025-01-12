@@ -1,3 +1,6 @@
+.lastSpecies p{
+    font-size: clamp(1rem, 1vw, 2rem);
+}
 .lastSpecies {
     display: flex;
     flex-wrap: wrap;
@@ -9,7 +12,9 @@
     width: 43%;
     background: #e3dfdf;
     padding: 3%;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .lastSpeciesImg {
@@ -17,3 +22,18 @@
 }
 
 .lastSpeciesImg img{width: 100%}
+
+@media (max-width: 650px) {
+    .lastSpeciesText{
+        display: flex;
+        align-items: center;
+    }
+    .lastSpecies > div{width: 100%;}
+    .lastSpeciesText p{width: 60%}
+}
+
+
+@media (max-width: 650px) {
+    .lastSpeciesText{flex-direction: column;}
+    .lastSpeciesText p{width: 100%}
+}

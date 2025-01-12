@@ -34,7 +34,7 @@ class TypeRoseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TypeRose
-        fields = ['name','description', 'image', 'genusRose', 'speciesRose']
+        fields = ['name','descriptionBig', 'image', 'genusRose', 'speciesRose']
 
 class GenusSerializer(serializers.ModelSerializer):
     species = SpeciesSerializer(many=True, read_only=True, default=[])

@@ -37,9 +37,11 @@ const DescriptionGenus = () => {
                 {data.species && data.species.length > 0 && (
                     <>
                         <h2>Виды</h2>
+                        <div className='lists'>
                         {data.species.map(spec => (
                             <Link key={spec.slug} to={`/api/kingdom/${division_slug}/${class_name_slug}/${order_slug}/${family_slug}/${genus_slug}/species/${spec.slug}`}>{spec.name}</Link>
                         ))}
+                        </div>
                     </>
                 )}
             </section>
@@ -50,7 +52,7 @@ const DescriptionGenus = () => {
                         {data.genusRose.map(gRose => (
                             <div className='typeRose'>
                                 <div><img src={`http://127.0.0.1:8000/${gRose.image}`} alt={gRose.name}/></div>
-                                <Link key={gRose.id} to={`${gRose.id}`}>{gRose.name}</Link>
+                                <Link key={gRose.id} to={`type-rose/${gRose.id}`}>{gRose.name}</Link>
                             </div>
                         ))}
                         </div>

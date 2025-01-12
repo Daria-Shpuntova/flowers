@@ -27,19 +27,20 @@ const DescriptionClassName = () => {
     return (
         <>
             <section>
-                <h2>{data.name}</h2>
+                <h2>Описание Класса</h2>
                 <div className='types'>
                         <p>{data.descriptionBig}</p>
                 </div>
             </section>
             <section>
-
                 {data.orderClass && data.orderClass.length > 0 && (
                     <>
                         <h2>Порядки</h2>
+                        <div className='lists'>
                             {data.orderClass.map(ord => (
                                 <Link key={ord.slug} to={ord.slug}>{ord.name}</Link>
                             ))}
+                        </div>
                     </>
                 )}
             </section>

@@ -38,9 +38,11 @@ const DescriptionSpecies = () => {
                 {data.subspecies && data.subspecies.length > 0 && (
                     <>
                         <h2>Подвиды</h2>
+                        <div className='lists'>
                         {data.subspecies.map(subspec => (
                             <Link key={subspec.slug} to={subspec.slug}>{subspec.name}</Link>
                         ))}
+                        </div>
                     </>
                 )}
             </section>
@@ -49,9 +51,11 @@ const DescriptionSpecies = () => {
                 {data.sortSpecies && data.sortSpecies.length > 0 && (
                     <>
                         <h2>Сорта</h2>
+                        <div className='lists'>
                         {data.sortSpecies.map(spec => (
                             <Link key={spec.slug} to={`/api/kingdom/${division_slug}/${class_name_slug}/${order_slug}/${family_slug}/${genus_slug}/sort/${spec.slug}`}>{spec.name}</Link>
                         ))}
+                        </div>
                     </>
                 )}
             </section>

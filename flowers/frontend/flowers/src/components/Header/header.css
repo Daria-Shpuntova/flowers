@@ -1,3 +1,29 @@
+nav {
+    display: flex;
+    width: 80%;
+    margin-inline: auto;
+    justify-content: space-between;
+}
+nav div{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+nav div a{
+    text-decoration: none;
+    color: #494949;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(1rem, 5vw, 2rem);
+}
+
+.headerH1 p{
+    margin: 0;
+    font-size: clamp(1rem, 2vw, 2rem);
+}
+
 .headerH1 {
     display: flex;
     width: 80%;
@@ -17,4 +43,13 @@
 
 .headerFoto img{
     width: 100%;
+}
+
+@media (max-width: 550px) {
+    .headerH1 {
+        flex-direction: column;
+        align-items: center;
+    }
+    .headerText {width: 100%}
+    .headerFoto {width: 50%}
 }

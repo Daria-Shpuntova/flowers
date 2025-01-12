@@ -1,31 +1,26 @@
 import './header.css';
 import { useEffect, useState } from 'react';
+import {Link} from "react-router-dom";
 
 
 const Header = ({ url }) => {
-
-    console.log(url, 'url5')
     const [set, newSet] = useState([]);
     const [error, setError] = useState(null); // Добавляем состояние для ошибок
 
     useEffect(() => {
         fetch(url)
             .then(response => {
-                console.log(response, 'response')
-                console.log(!response.ok, '!response.ok')
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log(data, 'data')
                 if (Array.isArray(data)) {
                     newSet(data);
                 } else {
                     newSet([data])
                 }
-
             })
             .catch(error => {
                 console.error('Error fetching error');
@@ -40,21 +35,16 @@ const Header = ({ url }) => {
     return (
         <>
             <nav>
-                <div><a href='#'>Царство</a></div>
-                <form className='search'>
-                    <input type="text" name="text" placeholder='Поиск' />
-                    <button type="submit">Поиск</button>
-                </form>
+                <div><Link to={`/`}>Царство Растений</Link></div>
+                <div><Link to={`/admin`}>Админ панель</Link></div>
             </nav>
-
             <div>
                 {set.map(s => (
                     <div key={`${s.slug || s.id}-${s.name}`} className='headerH1'>
                         <div className='headerText'>
                             <h1>{s.name}</h1>
-                            {s.slug ? <p>{s.description}</p> : null} {/* Показываем описание только если slug есть */}
+                            <p>{s.description}</p>
                         </div>
-
                         <div className='headerFoto'>
                             <img src={`${s.image}`} alt={s.name}/>
                         </div>

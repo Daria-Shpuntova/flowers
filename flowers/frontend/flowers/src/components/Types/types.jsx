@@ -25,7 +25,6 @@ export default function Types(){
                         <h3>{s.name}</h3>
                         <p><strong>Описание:</strong><br/> {s.description}</p>
                         <p><strong>Характеристики:</strong><br/> {s.characteristics}</p>
-
                         <p><strong>Примеры:</strong><br/> {s.examples.map(example => example.name).join(', ')}</p>
                     </div>
                     <div className='typesFoto'>

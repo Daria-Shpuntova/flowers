@@ -37,9 +37,11 @@ const DescriptionFamily = () => {
                 {data.genus && data.genus.length > 0 && (
                     <>
                         <h2>Род</h2>
+                        <div  className='lists'>
                             {data.genus.map(genu => (
                                 <Link key={genu.slug} to={genu.slug}>{genu.name}</Link>
                             ))}
+                        </div>
                     </>
                 )}
             </section>

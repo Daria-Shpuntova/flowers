@@ -36,9 +36,11 @@ const DescriptionOrder = () => {
                 {data.family && data.family.length > 0 && (
                     <>
                         <h2>Семейства</h2>
+                        <div  className='lists'>
                             {data.family.map(fam => (
                                 <Link key={fam.slug} to={fam.slug}>{fam.name}</Link>
                             ))}
+                        </div>
                     </>
                 )}
             </section>

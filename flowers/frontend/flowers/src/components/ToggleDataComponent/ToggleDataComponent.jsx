@@ -16,6 +16,8 @@ const generateSlug = (item, lastSlug) => {
         slugs.push('species',item.species_slug, item.slug);
     } else if (lastSlug === 'sort_slug') {
         slugs.push('sort', item.slug);
+    } else if (lastSlug === 'slug') {
+        slugs.push(item.slug);
     }
 
     return `api/kingdom/${slugs.join('/')}`; // Объединяем оставшиеся слаги в строку

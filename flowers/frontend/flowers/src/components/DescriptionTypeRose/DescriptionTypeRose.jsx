@@ -31,16 +31,15 @@ const DescriptionTypeRose = () => {
             <section>
                 <h2>Описание типа роз</h2>
                 <div className='types'>
-                    <p>{data.description}</p>
+                    <p>{data.descriptionBig}</p>
                 </div>
             </section>
             <section>
-
                 {data.speciesRose && data.speciesRose.length > 0 && (
                     <>
                         <h2>Виды</h2>
                         {data.speciesRose.map(spec => (
-                            <Link key={spec.slug} to={`/api/kingdom/${division_slug}/${class_name_slug}/${order_slug}/${family_slug}/${genus_slug}/species/${spec.slug}`}>{spec.name}</Link>
+                            <Link key={spec.slug} to={`/api/kingdom/с${order_slug}/${family_slug}/${genus_slug}/species/${spec.slug}`}>{spec.name}</Link>
                         ))}
                     </>
                 )}

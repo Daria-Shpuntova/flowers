@@ -27,7 +27,7 @@ const Description = () => {
     return (
         <>
             <section>
-                <h2>{data.name}</h2>
+                <h2>Описание Отдела</h2>
                 <div className='types'>
                         <p>{data.descriptionBig}</p>
                 </div>
@@ -36,22 +36,26 @@ const Description = () => {
                 {data.classes && data.classes.length > 0 && (
                     <>
                         <h2>Классы</h2>
+                        <div className='lists'>
                             {data.classes.map(cls => (
                                 <Link key={cls.slug} to={cls.slug}>{cls.name}</Link>
                             ))}
+                        </div>
                     </>
                 )}
                 {data.classes && data.classes.length === 0 && data.orders && data.orders.length > 0 && (
                     <>
                         <h2>Порядки</h2>
+                        <div className='lists'>
                             {data.orders.map(order => (
                                 <Link key={order.slug} to={order.slug}>{order.name}</Link>
                             ))}
+                        </div>
+                        </>
+                        )}
+                    </section>
                     </>
-                )}
-            </section>
-        </>
-    );
-}
+                    );
+                }
 
-export default Description;
+                export default Description;
